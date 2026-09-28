@@ -74,9 +74,11 @@ async function checkDawaStatus() {
 
     el.statusText.textContent = 'DAWA ER OPPE';
     el.statusText.className = 'status status-up';
+    document.body.classList.remove('state-down');
   } catch (err) {
     el.statusText.textContent = 'DAWA ER LUKKET';
     el.statusText.className = 'status status-down';
+    document.body.classList.add('state-down');
   } finally {
     clearTimeout(timeoutId);
     el.lastChecked.textContent = `Sidst tjekket: ${formatDanishTimestamp(new Date())}`;

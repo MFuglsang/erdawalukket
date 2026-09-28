@@ -1,9 +1,23 @@
 :root {
   --green: #22ff66;
   --green-dim: #0f8a35;
+  --green-rgb: 34, 255, 102;
   --red: #ff3b3b;
+  --red-dim: #7a1f1f;
+  --red-rgb: 255, 59, 59;
   --amber: #ffcc33;
   --bg: #010401;
+
+  /* Tema-farve der styres live af DAWA-statustjekket (grøn = oppe, rød = lukket) */
+  --accent: var(--green);
+  --accent-dim: var(--green-dim);
+  --accent-rgb: var(--green-rgb);
+}
+
+body.state-down {
+  --accent: var(--red);
+  --accent-dim: var(--red-dim);
+  --accent-rgb: var(--red-rgb);
 }
 
 * {
@@ -66,14 +80,15 @@ body {
   width: 100%;
   max-width: 780px;
   background: linear-gradient(180deg, #030a03 0%, #010401 100%);
-  border: 2px solid var(--green-dim);
+  border: 2px solid var(--accent-dim);
   border-radius: 10px;
   padding: 32px 28px 28px;
   box-shadow:
-    0 0 12px rgba(34, 255, 102, 0.4),
-    0 0 40px rgba(34, 255, 102, 0.15),
+    0 0 12px rgba(var(--accent-rgb), 0.4),
+    0 0 40px rgba(var(--accent-rgb), 0.15),
     inset 0 0 30px rgba(0, 0, 0, 0.8);
   text-align: center;
+  transition: border-color 0.6s ease, box-shadow 0.6s ease;
 }
 
 /* --- Background waveform / audio visualizer --- */
@@ -95,13 +110,14 @@ body {
 
 .waveform .bar {
   flex: 1;
-  background: var(--green);
+  background: var(--accent);
   height: 20%;
   transform-origin: center;
   animation-name: wave;
   animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
   animation-direction: alternate;
+  transition: background-color 0.6s ease;
 }
 
 @keyframes wave {
@@ -118,22 +134,25 @@ body {
   margin: 0 0 6px;
   font-size: clamp(22px, 5vw, 32px);
   letter-spacing: 4px;
-  color: var(--green);
-  text-shadow: 0 0 6px var(--green), 0 0 18px var(--green);
+  color: var(--accent);
+  text-shadow: 0 0 6px var(--accent), 0 0 18px var(--accent);
+  transition: color 0.6s ease, text-shadow 0.6s ease;
 }
 
 .subtitle {
   margin: 0 0 2px;
   font-size: clamp(13px, 2.6vw, 16px);
-  color: var(--green-dim);
+  color: var(--accent-dim);
   letter-spacing: 1px;
+  transition: color 0.6s ease;
 }
 
 .target-time {
   margin: 0 0 24px;
   font-size: clamp(12px, 2.4vw, 15px);
-  color: var(--green);
+  color: var(--accent);
   opacity: 0.85;
+  transition: color 0.6s ease;
 }
 
 /* --- Countdown display --- */
@@ -147,7 +166,7 @@ body {
 }
 
 .countdown.finished .unit .value {
-  color: var(--green-dim);
+  color: var(--accent-dim);
   text-shadow: none;
 }
 
@@ -159,46 +178,54 @@ body {
 }
 
 .value {
+  font-family: 'DSEG7-Classic', 'Share Tech Mono', 'Courier New', monospace;
+  font-weight: bold;
   font-size: clamp(36px, 9vw, 64px);
   line-height: 1;
   background: #000;
-  border: 1px solid var(--green-dim);
+  border: 1px solid var(--accent-dim);
   border-radius: 6px;
   padding: 8px 4px;
   width: 100%;
-  color: var(--green);
-  text-shadow: 0 0 8px var(--green), 0 0 22px rgba(34,255,102,0.6);
-  box-shadow: inset 0 0 14px rgba(34,255,102,0.25);
+  color: var(--accent);
+  text-shadow: 0 0 8px var(--accent), 0 0 22px rgba(var(--accent-rgb), 0.6);
+  box-shadow: inset 0 0 14px rgba(var(--accent-rgb), 0.25);
+  transition: color 0.6s ease, border-color 0.6s ease, text-shadow 0.6s ease, box-shadow 0.6s ease;
 }
 
 .label {
   margin-top: 8px;
   font-size: clamp(10px, 2vw, 12px);
   letter-spacing: 2px;
-  color: var(--green-dim);
+  color: var(--accent-dim);
+  transition: color 0.6s ease;
 }
 
 .colon {
+  font-family: 'DSEG7-Classic', 'Share Tech Mono', 'Courier New', monospace;
   font-size: clamp(28px, 7vw, 48px);
   padding-bottom: 30px;
-  color: var(--green-dim);
+  color: var(--accent-dim);
   align-self: stretch;
   display: flex;
   align-items: center;
+  transition: color 0.6s ease;
 }
 
 .finished-text {
   font-size: clamp(16px, 3.6vw, 22px);
   letter-spacing: 3px;
-  color: var(--red);
-  text-shadow: 0 0 8px var(--red);
+  color: var(--accent);
+  text-shadow: 0 0 8px var(--accent);
   margin: -6px 0 22px;
+  transition: color 0.6s ease, text-shadow 0.6s ease;
 }
 
 /* --- Status box --- */
 .status-box {
-  border-top: 1px dashed var(--green-dim);
+  border-top: 1px dashed var(--accent-dim);
   padding-top: 18px;
+  transition: border-color 0.6s ease;
 }
 
 .status {
@@ -226,5 +253,6 @@ body {
 .last-checked {
   margin: 0;
   font-size: clamp(11px, 2vw, 13px);
-  color: var(--green-dim);
+  color: var(--accent-dim);
+  transition: color 0.6s ease;
 }

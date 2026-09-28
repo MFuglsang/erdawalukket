@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DAWA Nedtælling</title>
+<meta name="description" content="Nedtælling til DAWA lukker d. 1. oktober 2026 kl. 10:00">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="scanlines" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <main class="console">
+    <div class="waveform" id="waveform" aria-hidden="true"></div>
+
+    <h1 class="title">DAWA NEDTÆLLING</h1>
+    <p class="subtitle">Danmarks Adressers Web API (DAWA) lukker</p>
+    <p class="target-time">Torsdag d. 1. oktober 2026 kl. 10:00:00 (dansk tid)</p>
+
+    <div class="countdown" id="countdown">
+      <div class="unit">
+        <span class="value" id="days">00</span>
+        <span class="label">DAGE</span>
+      </div>
+      <div class="colon">:</div>
+      <div class="unit">
+        <span class="value" id="hours">00</span>
+        <span class="label">TIMER</span>
+      </div>
+      <div class="colon">:</div>
+      <div class="unit">
+        <span class="value" id="minutes">00</span>
+        <span class="label">MINUTTER</span>
+      </div>
+      <div class="colon">:</div>
+      <div class="unit">
+        <span class="value" id="seconds">00</span>
+        <span class="label">SEKUNDER</span>
+      </div>
+    </div>
+
+    <p class="finished-text" id="finished-text" hidden>NEDTÆLLING AFSLUTTET</p>
+
+    <div class="status-box">
+      <p id="status-text" class="status status-unknown">TJEKKER STATUS&hellip;</p>
+      <p id="last-checked" class="last-checked">Sidst tjekket: &ndash;</p>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

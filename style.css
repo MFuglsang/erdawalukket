@@ -1,0 +1,230 @@
+:root {
+  --green: #22ff66;
+  --green-dim: #0f8a35;
+  --red: #ff3b3b;
+  --amber: #ffcc33;
+  --bg: #010401;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--green);
+  font-family: 'Share Tech Mono', 'Courier New', monospace;
+  overflow-x: hidden;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 24px;
+}
+
+/* --- Retro CRT overlay effects --- */
+.scanlines {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 255, 100, 0.05) 0px,
+    rgba(0, 255, 100, 0.05) 1px,
+    rgba(0, 0, 0, 0) 2px,
+    rgba(0, 0, 0, 0) 4px
+  );
+  animation: flicker 6s infinite;
+}
+
+.vignette {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0) 40%, rgba(0,0,0,0.85) 100%);
+}
+
+@keyframes flicker {
+  0%, 96%, 100% { opacity: 1; }
+  97% { opacity: 0.85; }
+  98% { opacity: 1; }
+}
+
+/* --- Console panel --- */
+.console {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 780px;
+  background: linear-gradient(180deg, #030a03 0%, #010401 100%);
+  border: 2px solid var(--green-dim);
+  border-radius: 10px;
+  padding: 32px 28px 28px;
+  box-shadow:
+    0 0 12px rgba(34, 255, 102, 0.4),
+    0 0 40px rgba(34, 255, 102, 0.15),
+    inset 0 0 30px rgba(0, 0, 0, 0.8);
+  text-align: center;
+}
+
+/* --- Background waveform / audio visualizer --- */
+.waveform {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2px;
+  padding: 0 10px;
+  opacity: 0.18;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.waveform .bar {
+  flex: 1;
+  background: var(--green);
+  height: 20%;
+  transform-origin: center;
+  animation-name: wave;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes wave {
+  0% { transform: scaleY(0.15); }
+  100% { transform: scaleY(1); }
+}
+
+.title, .subtitle, .target-time, .countdown, .status-box, .finished-text {
+  position: relative;
+  z-index: 1;
+}
+
+.title {
+  margin: 0 0 6px;
+  font-size: clamp(22px, 5vw, 32px);
+  letter-spacing: 4px;
+  color: var(--green);
+  text-shadow: 0 0 6px var(--green), 0 0 18px var(--green);
+}
+
+.subtitle {
+  margin: 0 0 2px;
+  font-size: clamp(13px, 2.6vw, 16px);
+  color: var(--green-dim);
+  letter-spacing: 1px;
+}
+
+.target-time {
+  margin: 0 0 24px;
+  font-size: clamp(12px, 2.4vw, 15px);
+  color: var(--green);
+  opacity: 0.85;
+}
+
+/* --- Countdown display --- */
+.countdown {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 22px;
+  flex-wrap: wrap;
+}
+
+.countdown.finished .unit .value {
+  color: var(--green-dim);
+  text-shadow: none;
+}
+
+.unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 68px;
+}
+
+.value {
+  font-size: clamp(36px, 9vw, 64px);
+  line-height: 1;
+  background: #000;
+  border: 1px solid var(--green-dim);
+  border-radius: 6px;
+  padding: 8px 4px;
+  width: 100%;
+  color: var(--green);
+  text-shadow: 0 0 8px var(--green), 0 0 22px rgba(34,255,102,0.6);
+  box-shadow: inset 0 0 14px rgba(34,255,102,0.25);
+}
+
+.label {
+  margin-top: 8px;
+  font-size: clamp(10px, 2vw, 12px);
+  letter-spacing: 2px;
+  color: var(--green-dim);
+}
+
+.colon {
+  font-size: clamp(28px, 7vw, 48px);
+  padding-bottom: 30px;
+  color: var(--green-dim);
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+}
+
+.finished-text {
+  font-size: clamp(16px, 3.6vw, 22px);
+  letter-spacing: 3px;
+  color: var(--red);
+  text-shadow: 0 0 8px var(--red);
+  margin: -6px 0 22px;
+}
+
+/* --- Status box --- */
+.status-box {
+  border-top: 1px dashed var(--green-dim);
+  padding-top: 18px;
+}
+
+.status {
+  font-size: clamp(16px, 3.2vw, 20px);
+  letter-spacing: 2px;
+  margin: 0 0 8px;
+  font-weight: bold;
+}
+
+.status-up {
+  color: var(--green);
+  text-shadow: 0 0 8px var(--green), 0 0 20px rgba(34,255,102,0.6);
+}
+
+.status-down {
+  color: var(--red);
+  text-shadow: 0 0 8px var(--red), 0 0 20px rgba(255,59,59,0.6);
+}
+
+.status-unknown {
+  color: var(--amber);
+  text-shadow: 0 0 8px var(--amber);
+}
+
+.last-checked {
+  margin: 0;
+  font-size: clamp(11px, 2vw, 13px);
+  color: var(--green-dim);
+}

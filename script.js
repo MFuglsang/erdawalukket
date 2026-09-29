@@ -18,6 +18,8 @@ const el = {
   waveform: document.getElementById('waveform'),
 };
 
+let isTimeUp = false;
+
 function pad(n) {
   return String(n).padStart(2, '0');
 }
@@ -25,6 +27,7 @@ function pad(n) {
 function updateCountdown() {
   const diffMs = TARGET_DATE.getTime() - Date.now();
   const finished = diffMs <= 0;
+  isTimeUp = finished;
 
   el.countdown.classList.toggle('finished', finished);
   el.finishedText.hidden = !finished;
@@ -72,12 +75,21 @@ async function checkDawaStatus() {
     // Sikrer at svaret rent faktisk kan parses som JSON, ikke bare at statuskoden er OK.
     await response.json();
 
-    el.statusText.textContent = 'DAWA ER OPPE';
-    el.statusText.className = 'status status-up';
-    document.body.classList.remove('state-down');
+    if (isTimeUp) {
+      // Tiden er udløbet, men DAWA svarer stadig - kræver nok manuel nedlukning af servere.
+      el.statusText.textContent = 'DAWA SVARER STADIG - TIDEN ER UDLØBET';
+      el.statusText.className = 'status status-warning';
+      document.body.classList.remove('state-down');
+      document.body.classList.add('state-warning');
+    } else {
+      el.statusText.textContent = 'DAWA ER OPPE';
+      el.statusText.className = 'status status-up';
+      document.body.classList.remove('state-down', 'state-warning');
+    }
   } catch (err) {
     el.statusText.textContent = 'DAWA ER LUKKET';
     el.statusText.className = 'status status-down';
+    document.body.classList.remove('state-warning');
     document.body.classList.add('state-down');
   } finally {
     clearTimeout(timeoutId);

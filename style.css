@@ -6,6 +6,8 @@
   --red-dim: #7a1f1f;
   --red-rgb: 255, 59, 59;
   --amber: #ffcc33;
+  --amber-dim: #8a6d0f;
+  --amber-rgb: 255, 204, 51;
   --bg: #010401;
 
   /* Tema-farve der styres live af DAWA-statustjekket (grøn = oppe, rød = lukket) */
@@ -18,6 +20,12 @@ body.state-down {
   --accent: var(--red);
   --accent-dim: var(--red-dim);
   --accent-rgb: var(--red-rgb);
+}
+
+body.state-warning {
+  --accent: var(--amber);
+  --accent-dim: var(--amber-dim);
+  --accent-rgb: var(--amber-rgb);
 }
 
 * {
@@ -243,6 +251,11 @@ body {
 .status-down {
   color: var(--red);
   text-shadow: 0 0 8px var(--red), 0 0 20px rgba(255,59,59,0.6);
+}
+
+.status-warning {
+  color: var(--amber);
+  text-shadow: 0 0 8px var(--amber), 0 0 20px rgba(255,204,51,0.6);
 }
 
 .status-unknown {
